@@ -1,20 +1,20 @@
 import { isFridayRush } from "./isFridayRush";
 
 /** */
-export type TimeBasedEvent = Readonly<{
+export type TimeBasedEvent = {
   /** The title of the event. */
   summary: string;
   /** The rate or multiplier associated with the event. */
   rate: number;
   /** Indicates whether the event is disabled. */
   isDisabled?: boolean;
-}>;
+};
 
 /** */
 export type EventDictionary = Record<string, TimeBasedEvent>;
 
 /** */
-export const events: EventDictionary = {
+export const woltEvents: EventDictionary = {
   default: { summary: "Default", rate: 1.0 },
   fridayRush: { summary: "Friday Rush", rate: 1.2 },
 } as const;
@@ -22,7 +22,7 @@ export const events: EventDictionary = {
 /** Determines the time-based event for a given date. */
 export function getTimeBasedEvent(
   date: Date,
-  events: EventDictionary
+  events: EventDictionary = woltEvents
 ): TimeBasedEvent {
   return isFridayRush(date) && !events.fridayRush.isDisabled
     ? events.fridayRush
