@@ -1,43 +1,48 @@
-import { calculateDeliveryFee } from "./calculateDeliveryFee";
+import {
+  calculateDeliveryFee,
+  type DeliveryRequest,
+} from "./calculateDeliveryFee";
 import { calculateDistanceFee } from "./calculateDistanceFee";
 import { calculateItemFee } from "./calculateItemFee";
 import { calculateSmallOrderFee } from "./calculateSmallOrderFee";
-import { getTimeBasedRate } from "./getTimeBasedRate";
+import { getTimeBasedEvent } from "./getTimeBasedEvent";
 
 describe("calculateDeliveryFee()", () => {
-  const mockDeliveryRequest = {
+  const mockDeliveryRequest: DeliveryRequest = {
     cart: 0,
     distance: 1000,
     items: 5,
     time: new Date("2024-01-03T12:00:00Z"), // Wednesday, 12 PM UTC
-  } as const;
+  };
 
-  it("returns 0 for cart value equal to the threshold", () => {
-    const request = { ...mockDeliveryRequest, cart: 100 };
-    expect(calculateDeliveryFee(request)).toBe(0);
+  it("returns free delivery fee for cart value equal to the threshold", () => {
+    const freeDeliveryRequest = { ...mockDeliveryRequest, cart: 100 };
+    expect(calculateDeliveryFee(freeDeliveryRequest).feeToBePaid).toBe(0);
   });
 
-  it("returns 0 for cart value greater than the threshold", () => {
-    const request = { ...mockDeliveryRequest, cart: 150 };
-    expect(calculateDeliveryFee(request)).toBe(0);
+  it("returns free delivery fee for cart value greater than the threshold", () => {
+    const freeDeliveryRequest = { ...mockDeliveryRequest, cart: 150 };
+    expect(calculateDeliveryFee(freeDeliveryRequest).feeToBePaid).toBe(0);
   });
 
   it("returns delivery fee for a small cart value", () => {
     const request = { ...mockDeliveryRequest, cart: 50 };
-    let expectedFee = calculateSmallOrderFee(request.cart);
-    expectedFee += calculateDistanceFee(request.distance);
-    expectedFee += calculateItemFee(request.items);
-    expectedFee *= getTimeBasedRate(request.time);
-    expect(calculateDeliveryFee(request)).toBe(expectedFee);
+    const smallOrderFee = calculateSmallOrderFee(request.cart);
+    const distanceFee = calculateDistanceFee(request.distance);
+    const itemFee = calculateItemFee(request.items);
+    const event = getTimeBasedEvent(request.time);
+    const baseFee = smallOrderFee + distanceFee + itemFee;
+    const ratedFee = baseFee * event.rate;
+    expect(calculateDeliveryFee(request).feeToBePaid).toBe(ratedFee);
   });
 
   it("returns max delivery fee for large orders with surcharges", () => {
-    const request = {
+    const maxFeeDeliveryRequest: DeliveryRequest = {
       ...mockDeliveryRequest,
       cart: 50,
       distance: 3500,
       items: 20,
     };
-    expect(calculateDeliveryFee(request)).toBe(15);
+    expect(calculateDeliveryFee(maxFeeDeliveryRequest).feeToBePaid).toBe(15);
   });
 });

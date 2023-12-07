@@ -1,22 +1,40 @@
 import { calculateDistanceFee } from "./calculateDistanceFee";
 import { calculateItemFee } from "./calculateItemFee";
 import { calculateSmallOrderFee } from "./calculateSmallOrderFee";
-import { getTimeBasedRate } from "./getTimeBasedRate";
+import { getTimeBasedEvent, type TimeBasedEvent } from "./getTimeBasedEvent";
 
 /** */
 const cartThreshold = 100.0;
 /** */
-const noDeliveryFee = 0;
+const noDeliveryFee = 0.0;
 /** */
 const maxDeliveryFee = 15.0;
 
-/** */
-type DeliveryRequest = {
+export type DeliveryRequest = Readonly<{
+  /** */
   cart: number;
+  /** */
   distance: number;
+  /** */
   items: number;
+  /** */
   time: Date;
-};
+}>;
+
+export type DeliveryResponse = Readonly<{
+  /** */
+  smallOrderFee: number;
+  /** */
+  distanceFee: number;
+  /** */
+  itemFee: number;
+  /** */
+  event: TimeBasedEvent;
+  /** */
+  totalFee: number;
+  /** */
+  feeToBePaid: number;
+}>;
 
 /** */
 export function calculateDeliveryFee({
@@ -24,16 +42,18 @@ export function calculateDeliveryFee({
   distance,
   items,
   time,
-}: DeliveryRequest): number {
-  let deliveryFee = 0;
-  // The delivery is free (0€) when the cart value is equal or more than 100€.
-  if (cart >= cartThreshold) {
-    return noDeliveryFee;
-  }
-  deliveryFee += calculateSmallOrderFee(cart);
-  deliveryFee += calculateDistanceFee(distance);
-  deliveryFee += calculateItemFee(items);
-  deliveryFee *= getTimeBasedRate(time);
+}: DeliveryRequest): DeliveryResponse {
+  //
+  const smallOrderFee = calculateSmallOrderFee(cart);
+  const distanceFee = calculateDistanceFee(distance);
+  const itemFee = calculateItemFee(items);
+  const baseFee = smallOrderFee + distanceFee + itemFee;
+  //
+  const event = getTimeBasedEvent(time);
+  const ratedFee = baseFee * event.rate;
   // The delivery fee can never be more than 15€, including possible surcharges.
-  return Math.min(deliveryFee, maxDeliveryFee);
+  const totalFee = Math.min(ratedFee, maxDeliveryFee);
+  // The delivery is free (0€) when the cart value is equal or more than 100€.
+  const feeToBePaid = cart >= cartThreshold ? noDeliveryFee : totalFee;
+  return { smallOrderFee, distanceFee, itemFee, event, totalFee, feeToBePaid };
 }
