@@ -10,7 +10,7 @@ const noDeliveryFee = 0.0;
 /** */
 const maxDeliveryFee = 15.0;
 
-export type DeliveryRequest = Readonly<{
+export type DeliveryRequest = {
   /** */
   cart: number;
   /** */
@@ -19,9 +19,9 @@ export type DeliveryRequest = Readonly<{
   items: number;
   /** */
   time: Date;
-}>;
+};
 
-export type DeliveryResponse = Readonly<{
+export type DeliveryResponse = {
   /** */
   smallOrderFee: number;
   /** */
@@ -34,7 +34,7 @@ export type DeliveryResponse = Readonly<{
   totalFee: number;
   /** */
   feeToBePaid: number;
-}>;
+};
 
 /** */
 export function calculateDeliveryFee({
