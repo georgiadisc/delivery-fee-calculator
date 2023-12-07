@@ -1,12 +1,12 @@
 import { isFridayRush } from "./isFridayRush";
 
 /** */
-export type TimeBasedEvent = {
+export type TimeBasedEvent = Readonly<{
   /** */
   summary: string;
   /** */
   rate: number;
-};
+}>;
 
 /** */
 export const events: Record<string, TimeBasedEvent> = {
