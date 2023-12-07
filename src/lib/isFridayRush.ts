@@ -13,11 +13,15 @@ const fridayRushStartHour = 15;
 /** */
 const fridayRushEndHour = 19;
 
+function isFriday(day: number): boolean {
+  return day === weekDay.Friday;
+}
+
+function isWithinRushHours(hours: number): boolean {
+  return hours >= fridayRushStartHour && hours < fridayRushEndHour;
+}
+
 /** */
 export function isFridayRush(date: Date): boolean {
-  const isFriday = date.getUTCDay() === weekDay.Friday;
-  const isWithinRushHours =
-    date.getUTCHours() >= fridayRushStartHour &&
-    date.getUTCHours() < fridayRushEndHour;
-  return isFriday && isWithinRushHours;
+  return isFriday(date.getUTCDay()) && isWithinRushHours(date.getUTCHours());
 }
