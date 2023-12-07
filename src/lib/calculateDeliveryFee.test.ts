@@ -5,7 +5,7 @@ import {
 import { calculateDistanceFee } from "./calculateDistanceFee";
 import { calculateItemFee } from "./calculateItemFee";
 import { calculateSmallOrderFee } from "./calculateSmallOrderFee";
-import { getTimeBasedEvent } from "./getTimeBasedEvent";
+import { getTimeBasedEvent, type EventDictionary } from "./getTimeBasedEvent";
 
 describe("calculateDeliveryFee()", () => {
   const mockDeliveryRequest: DeliveryRequest = {
@@ -26,11 +26,15 @@ describe("calculateDeliveryFee()", () => {
   });
 
   it("returns delivery fee for a small cart value", () => {
+    const mockEvents: EventDictionary = {
+      default: { summary: "Default", rate: 1.0 },
+      fridayRush: { summary: "Friday Rush", rate: 1.2 },
+    };
     const request = { ...mockDeliveryRequest, cart: 50 };
     const smallOrderFee = calculateSmallOrderFee(request.cart);
     const distanceFee = calculateDistanceFee(request.distance);
     const itemFee = calculateItemFee(request.items);
-    const event = getTimeBasedEvent(request.time);
+    const event = getTimeBasedEvent(request.time, mockEvents);
     const baseFee = smallOrderFee + distanceFee + itemFee;
     const ratedFee = baseFee * event.rate;
     expect(calculateDeliveryFee(request).feeToBePaid).toBe(ratedFee);
