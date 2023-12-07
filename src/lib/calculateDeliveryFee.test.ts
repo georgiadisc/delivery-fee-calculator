@@ -13,7 +13,7 @@ describe("calculateDeliveryFee()", () => {
     distance: 1000,
     items: 5,
     time: new Date("2024-01-03T12:00:00Z"), // Wednesday, 12 PM UTC
-  };
+  } as const;
 
   it("returns free delivery fee for cart value equal to the threshold", () => {
     const freeDeliveryRequest = { ...mockDeliveryRequest, cart: 100 };
@@ -29,7 +29,7 @@ describe("calculateDeliveryFee()", () => {
     const mockEvents: EventDictionary = {
       default: { summary: "Default", rate: 1.0 },
       fridayRush: { summary: "Friday Rush", rate: 1.2 },
-    };
+    } as const;
     const request = { ...mockDeliveryRequest, cart: 50 };
     const smallOrderFee = calculateSmallOrderFee(request.cart);
     const distanceFee = calculateDistanceFee(request.distance);
@@ -46,7 +46,7 @@ describe("calculateDeliveryFee()", () => {
       cart: 50,
       distance: 3500,
       items: 20,
-    };
+    } as const;
     expect(calculateDeliveryFee(maxFeeDeliveryRequest).feeToBePaid).toBe(15);
   });
 });
