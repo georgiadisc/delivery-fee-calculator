@@ -2,7 +2,9 @@ import { isFridayRush } from "./isFridayRush";
 
 /** */
 export type TimeBasedEvent = {
+  /** */
   summary: string;
+  /** */
   rate: number;
 };
 
