@@ -7,6 +7,7 @@ const smallOrderSurchargeThreshold = 10.0;
  * between the cart value and {@link smallOrderSurchargeThreshold}. For example
  * if the cart value is 8.90€ and the specified threshold is 10€, the surcharge
  * will be 1.10€.
+ * @param cart - The total value of the items in the cart.
  */
 export function calculateSmallOrderFee(cart: number): number {
   return Math.max(smallOrderSurchargeThreshold - cart, 0);
