@@ -1,4 +1,4 @@
-import { Stepper } from "@/components/HookUsage";
+import { Stepper } from "@/components/Stepper";
 import { SectionHeaderRow } from "@/components/SectionHeaderRow";
 import { FormControl, Stack } from "@chakra-ui/react";
 import { ReceiptLongRounded } from "@mui/icons-material";
