@@ -1,5 +1,5 @@
 import { Center, useColorModeValue } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export function PaddedIcon({ children }: { children: ReactNode }) {
   const bgColor = useColorModeValue("gray.100", "whiteAlpha.200");

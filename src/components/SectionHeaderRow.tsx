@@ -1,6 +1,6 @@
+import { PaddedIcon } from "@/components/PaddedIcon";
 import { FormHelperText, FormLabel, HStack, VStack } from "@chakra-ui/react";
 import { ReactElement } from "react";
-import { PaddedIcon } from "./PaddedIcon";
 
 interface Props {
   /** The title of the section. */

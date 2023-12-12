@@ -1,3 +1,4 @@
+import { DetailedPriceTable } from "@/components/DetailedPriceTable";
 import { DeliveryResponse } from "@/lib/calculateDeliveryFee";
 import {
   Box,
@@ -10,7 +11,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { DetailedPriceTable } from "./DetailedPriceTable";
 
 interface Props {
   /** The delivery response data containing fee details. */

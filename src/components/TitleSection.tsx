@@ -1,8 +1,8 @@
 "use client";
 
+import { PricingInfoSection } from "@/components/PricingInfoSection";
 import { Button, Heading, VStack, useDisclosure } from "@chakra-ui/react";
 import { InfoRounded } from "@mui/icons-material";
-import { PricingInfoSection } from "./PricingInfoSection";
 
 export function TitleSection() {
   const { isOpen, onOpen, onClose } = useDisclosure();
