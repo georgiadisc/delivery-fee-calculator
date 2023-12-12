@@ -32,6 +32,7 @@ const {
   NumberInput,
   Select,
   Slider,
+  Table,
   Tooltip,
 } = chakraTheme.components;
 
@@ -47,6 +48,7 @@ const baseTheme = extendBaseTheme({
     NumberInput,
     Select,
     Slider,
+    Table,
     Tooltip,
   },
 });
