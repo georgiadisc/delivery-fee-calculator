@@ -6,6 +6,7 @@ import { PricingInfoSection } from "./PricingInfoSection";
 
 export function TitleSection() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <VStack alignItems="start" gap={4}>
       <Heading as="h1" size="lg">
