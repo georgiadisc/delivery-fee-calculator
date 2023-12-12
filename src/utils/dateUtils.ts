@@ -74,23 +74,22 @@ type TimeRangeOptions = {
  * formatted timestamps.
  * @param startHour - The starting hour of the time range (optional, defaults
  * to the current hour).
- * @param endHour - The ending hour of the time range (defaults to midnight).
+ * @param endHour - The ending hour of the time range.
  * @param rangeInterval - The interval between time entries in minutes
  * (defaults to 5 minutes).
  */
-export function getTimeRange(
-  options: TimeRangeOptions = {
-    endHour: 24,
-    rangeInterval: 5,
-  }
-) {
+export function getTimeRange({
+  startHour,
+  endHour,
+  rangeInterval,
+}: TimeRangeOptions) {
   const millisecondsPerMinute = 60000;
 
   const timestamps: Record<string, string> = {};
   const currentTime = new Date();
 
   currentTime.setHours(
-    options.startHour ?? currentTime.getHours(),
+    startHour ?? currentTime.getHours(),
     currentTime.getMinutes(),
     0,
     0
@@ -100,7 +99,7 @@ export function getTimeRange(
     currentTime.getFullYear(),
     currentTime.getMonth(),
     currentTime.getDate(),
-    options.endHour,
+    endHour,
     0,
     0
   );
@@ -108,9 +107,9 @@ export function getTimeRange(
   const formatTime = (date: Date): string =>
     new Intl.DateTimeFormat("en-US", { timeStyle: "short" }).format(date);
 
-  const remainder = currentTime.getMinutes() % options.rangeInterval;
+  const remainder = currentTime.getMinutes() % rangeInterval;
   currentTime.setMinutes(
-    currentTime.getMinutes() + (options.rangeInterval - remainder)
+    currentTime.getMinutes() + (rangeInterval - remainder)
   );
 
   while (currentTime < endTime) {
@@ -118,7 +117,7 @@ export function getTimeRange(
     timestamps[formattedTime] = currentTime.toISOString();
 
     currentTime.setTime(
-      currentTime.getTime() + options.rangeInterval * millisecondsPerMinute
+      currentTime.getTime() + rangeInterval * millisecondsPerMinute
     );
   }
 
