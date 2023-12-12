@@ -30,9 +30,9 @@ export type DeliveryResponse = {
   itemFee: number;
   /** The time-based event affecting the delivery fee. */
   event: TimeBasedEvent;
-  /** The total delivery fee, considering all factors, surcharges. */
+  /** The total delivery fee, considering all factors and surcharges. */
   totalFee: number;
-  /** The final fee to be paid, accounting for any waivers. */
+  /** The final fee to be paid, accounting for any waivers or maximum limits. */
   feeToBePaid: number;
 };
 
