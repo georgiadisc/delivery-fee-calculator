@@ -1,4 +1,4 @@
-import { HookUsage } from "@/components/HookUsage";
+import { Stepper } from "@/components/HookUsage";
 import { SectionHeaderRow } from "@/components/SectionHeaderRow";
 import { FormControl, Stack } from "@chakra-ui/react";
 import { ReceiptLongRounded } from "@mui/icons-material";
@@ -13,7 +13,7 @@ export function ItemSection() {
           icon={<ReceiptLongRounded />}
           htmlFor="items"
         />
-        <HookUsage />
+        <Stepper />
       </Stack>
     </FormControl>
   );
