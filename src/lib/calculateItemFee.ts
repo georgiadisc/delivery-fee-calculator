@@ -19,7 +19,7 @@ const bulkFee = 1.2;
  * cents) + 1,20€)
  * @param items - The number of items for which the fee is calculated.
  */
-export function calculateItemFee(items: number) {
+export function calculateItemFee(items: number): number {
   const itemFee = Math.max(0, items - maxFreeItems) * itemSurchargeRate;
   return items > bulkSurchargeItemThreshold ? itemFee + bulkFee : itemFee;
 }
