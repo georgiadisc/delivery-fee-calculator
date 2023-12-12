@@ -58,13 +58,13 @@ export function calculateDeliveryFee({
 
   // Determine the time-based event that applies to the order.
   const event = getTimeBasedEvent(time);
-  const ratedFee = baseFee * event.rate;
+  const totalFee = baseFee * event.rate;
 
   // Ensure that the total fee does not exceed the maximum allowable fee.
-  const totalFee = Math.min(ratedFee, maxDeliveryFee);
+  const cappedFee = Math.min(totalFee, maxDeliveryFee);
 
   // Waive the delivery fee if the cart value exceeds the specified threshold.
-  const feeToBePaid = cart >= cartThreshold ? noDeliveryFee : totalFee;
+  const feeToBePaid = cart >= cartThreshold ? noDeliveryFee : cappedFee;
 
   return { smallOrderFee, distanceFee, itemFee, event, totalFee, feeToBePaid };
 }
