@@ -18,7 +18,7 @@ interface Props {
 
 export function OrderDetailsSection({ deliveryResponse, onClose }: Props) {
   return (
-    <Box height={{ sm: 560, md: "100%" }} borderRadius={24} overflow="hidden">
+    <Box height={{ sm: 640, md: "100%" }} borderRadius={24} overflow="hidden">
       {deliveryResponse ? (
         <PriceBreakdown deliveryResponse={deliveryResponse} onClose={onClose} />
       ) : (
