@@ -17,16 +17,23 @@ interface PriceRowProps {
   value: number;
   /** Whether to apply strikethrough styling to the price. */
   isStrikethrough: boolean;
+  /** An optional suffix to be displayed after the price value. */
+  suffix?: string;
 }
 
-const PriceRow = ({ label, value, isStrikethrough }: PriceRowProps) => (
+const PriceRow = ({
+  label,
+  value,
+  isStrikethrough,
+  suffix = "€",
+}: PriceRowProps) => (
   <Tr>
     <Td>{label}</Td>
     <Td
       isNumeric
       textDecorationLine={isStrikethrough ? "line-through" : undefined}
     >
-      {value.toFixed(2)} €
+      {`${value.toFixed(2)} ${suffix}`}
     </Td>
   </Tr>
 );
@@ -56,6 +63,12 @@ export function DetailedPriceTable({ data }: { data: DeliveryResponse }) {
             label="Item Surcharge"
             value={data.itemFee}
             isStrikethrough={data.feeToBePaid === 0}
+          />
+          <PriceRow
+            label={`${data.event.summary} Rate`}
+            value={data.event.rate}
+            isStrikethrough={data.feeToBePaid === 0}
+            suffix="X"
           />
           <PriceRow
             label="Total Fee"
