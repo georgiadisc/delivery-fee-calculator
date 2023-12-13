@@ -32,7 +32,6 @@ export function OrderInputSection({ onSubmit }: Props) {
     ];
 
     time.setDate(time.getDate() + (day - time.getDay()));
-
     onSubmit(calculateDeliveryFee({ cart, distance, items, time }));
   };
 
