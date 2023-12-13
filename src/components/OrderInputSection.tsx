@@ -18,7 +18,7 @@ interface Props {
 }
 
 export function OrderInputSection({ onSubmit }: Props) {
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -34,7 +34,7 @@ export function OrderInputSection({ onSubmit }: Props) {
     time.setDate(time.getDate() + (day - time.getDay()));
 
     onSubmit(calculateDeliveryFee({ cart, distance, items, time }));
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
