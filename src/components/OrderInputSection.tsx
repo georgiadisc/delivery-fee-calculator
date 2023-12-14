@@ -43,8 +43,8 @@ export function OrderInputSection({ onSubmit }: Props) {
         justifyContent="space-between"
         height="100%"
       >
-        <TitleSection />
         <Flex flexDirection="column" gap={6}>
+          <TitleSection />
           <CartSection />
           <DistanceSection />
           <ItemSection />
