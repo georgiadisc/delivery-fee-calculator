@@ -27,7 +27,7 @@ export function getWeekStartingFrom(
   excludedDays: number[] = [weekDay.Sunday]
 ): Record<string, number> {
   const weekDays = Object.keys(weekDay);
-  const days: Record<string, number> = {};
+  const week: Record<string, number> = {};
 
   for (let i = 0; i < weekDays.length; i++) {
     const currentDay = (day + i) % 7;
@@ -36,19 +36,18 @@ export function getWeekStartingFrom(
     if (excludedDays.includes(currentDay)) continue;
 
     // Determine the key for the current day
-    let dayKey: string;
+    let currentDayKey: string;
     if (i === 0) {
-      dayKey = "Today";
+      currentDayKey = "Today";
     } else if (i === 1) {
-      dayKey = "Tomorrow";
+      currentDayKey = "Tomorrow";
     } else {
-      dayKey = weekDays[currentDay];
+      currentDayKey = weekDays[currentDay];
     }
-
-    days[dayKey] = currentDay;
+    week[currentDayKey] = currentDay;
   }
 
-  return days;
+  return week;
 }
 
 type TimeRangeOptions = {
@@ -75,7 +74,7 @@ export function getTimeRange({
   startHour,
   endHour,
   rangeInterval,
-}: TimeRangeOptions) {
+}: TimeRangeOptions): Record<string, string> {
   const millisecondsPerMinute = 60000;
 
   const timestamps: Record<string, string> = {};
