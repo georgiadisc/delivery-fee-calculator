@@ -14,7 +14,7 @@ describe("isFriday()", () => {
 
 describe("getWeekStartingFrom()", () => {
   it("returns days starting from Monday, excluding Sunday", () => {
-    const result = getWeekStartingFrom(weekDay.Monday, [weekDay.Sunday]);
+    const result = getWeekStartingFrom({ dayOfWeek: weekDay.Monday });
     expect(result).toEqual({
       Today: weekDay.Monday,
       Tomorrow: weekDay.Tuesday,
@@ -27,7 +27,7 @@ describe("getWeekStartingFrom()", () => {
 });
 
 it("returns days starting from Sunday, excluding Sunday", () => {
-  const result = getWeekStartingFrom(weekDay.Sunday, [weekDay.Sunday]);
+  const result = getWeekStartingFrom({ dayOfWeek: weekDay.Sunday });
   expect(result).toEqual({
     Tomorrow: weekDay.Monday,
     Tuesday: weekDay.Tuesday,
@@ -39,10 +39,10 @@ it("returns days starting from Sunday, excluding Sunday", () => {
 });
 
 it("returns days starting from Sunday, excluding Monday and Sunday", () => {
-  const result = getWeekStartingFrom(weekDay.Sunday, [
-    weekDay.Monday,
-    weekDay.Sunday,
-  ]);
+  const result = getWeekStartingFrom({
+    dayOfWeek: weekDay.Sunday,
+    excludedDays: [weekDay.Monday, weekDay.Sunday],
+  });
   expect(result).toEqual({
     Tuesday: weekDay.Tuesday,
     Wednesday: weekDay.Wednesday,
@@ -53,10 +53,10 @@ it("returns days starting from Sunday, excluding Monday and Sunday", () => {
 });
 
 it("returns days starting from Friday, excluding Sunday and Friday", () => {
-  const result = getWeekStartingFrom(weekDay.Friday, [
-    weekDay.Sunday,
-    weekDay.Friday,
-  ]);
+  const result = getWeekStartingFrom({
+    dayOfWeek: weekDay.Friday,
+    excludedDays: [weekDay.Sunday, weekDay.Friday],
+  });
   expect(result).toEqual({
     Tomorrow: weekDay.Saturday,
     Monday: weekDay.Monday,

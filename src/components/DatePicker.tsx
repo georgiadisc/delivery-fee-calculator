@@ -1,15 +1,15 @@
 "use client";
 
-import { getTimeRange, getWeekStartingFrom, weekDay } from "@/utils/dateUtils";
+import { getTimeRange, getWeekStartingFrom } from "@/utils/dateUtils";
 import { HStack, Select, VisuallyHidden } from "@chakra-ui/react";
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 
 const dayOptions = Object.entries(
-  getWeekStartingFrom(new Date().getDay(), [weekDay.Sunday])
+  getWeekStartingFrom({ dayOfWeek: new Date().getDay() })
 ).map(([label, value]) => ({ label, value }));
 
 const timeOptions = Object.entries(
-  getTimeRange({ startHour: 12, endHour: 24, rangeInterval: 5 })
+  getTimeRange({ startHour: 12, endHour: 24 })
 ).map(([label, value]) => ({ label, value }));
 
 export function DatePicker() {
