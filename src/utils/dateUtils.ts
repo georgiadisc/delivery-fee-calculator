@@ -14,22 +14,29 @@ export function isFriday(day: number): boolean {
   return day === weekDay.Friday;
 }
 
+type WeekOptions = {
+  /** The numeric representation of the starting week day. */
+  dayOfWeek: number;
+  /** An array of week days to be excluded. */
+  excludedDays?: number[];
+};
+
 /**
  * Returns a record of days starting from the given day and extending until the
  * length of the week, excluding specified days.
- * @param day - The numeric representation of the starting day.
- * @param excludedDays - An array of numeric representations of days to be
- * excluded (default is Sunday).
+ * @param dayOfWeek - The numeric representation of the starting week day.
+ * @param excludedDays - An array of week days to be excluded (default is
+ * Sunday).
  */
-export function getWeekStartingFrom(
-  day: number,
-  excludedDays: number[] = [weekDay.Sunday]
-): Record<string, number> {
+export function getWeekStartingFrom({
+  dayOfWeek,
+  excludedDays = [weekDay.Sunday],
+}: WeekOptions): Record<string, number> {
   const weekDays = Object.keys(weekDay);
   const week: Record<string, number> = {};
 
   for (let i = 0; i < weekDays.length; i++) {
-    const currentDay = (day + i) % 7;
+    const currentDay = (dayOfWeek + i) % 7;
 
     // Skip excluded days
     if (excludedDays.includes(currentDay)) continue;
@@ -51,19 +58,18 @@ export function getWeekStartingFrom(
 
 type TimeRangeOptions = {
   /** The starting hour of the time range. */
-  startHour?: number;
+  startHour: number;
   /** The ending hour of the time range. */
   endHour: number;
   /** The interval between time entries in minutes. */
-  rangeInterval: number;
+  rangeInterval?: number;
 };
 
 /**
  * Returns a time range with the specified parameters. A record where keys are
  * formatted time strings (in "short" time style) and values are ISO 8601
  * formatted timestamps.
- * @param startHour - The starting hour of the time range (optional, defaults
- * to the current hour).
+ * @param startHour - The starting hour of the time range.
  * @param endHour - The ending hour of the time range.
  * @param rangeInterval - The interval between time entries in minutes
  * (defaults to 5 minutes).
@@ -71,19 +77,14 @@ type TimeRangeOptions = {
 export function getTimeRange({
   startHour,
   endHour,
-  rangeInterval,
+  rangeInterval = 5,
 }: TimeRangeOptions): Record<string, string> {
   const millisecondsPerMinute = 60000;
 
   const timestamps: Record<string, string> = {};
   const currentTime = new Date();
 
-  currentTime.setHours(
-    startHour ?? currentTime.getHours(),
-    currentTime.getMinutes(),
-    0,
-    0
-  );
+  currentTime.setHours(startHour, currentTime.getMinutes(), 0, 0);
 
   const endTime = new Date(
     currentTime.getFullYear(),
