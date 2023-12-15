@@ -17,10 +17,9 @@ export function isFriday(day: number): boolean {
 }
 
 /**
- * Returns a record of days starting from the specified day, excluding
- * specified days. The record includes the starting day and extends until the
- * total number of days, calculated based on the length of the week and the
- * excluded days.
+ * Returns a record of days starting from the given day and extending until the
+ * length of the week, excluding specified days.
+ *
  * @param day - The numeric representation of the starting day.
  * @param excludedDays - An array of numeric representations of days to be
  * excluded (default is Sunday).
@@ -31,13 +30,8 @@ export function getWeekStartingFrom(
 ): Record<string, number> {
   const weekDays = Object.keys(weekDay);
   const days: Record<string, number> = {};
-  const totalDays = weekDays.length + excludedDays.length;
 
-  // Constants representing the first and second day in the iteration
-  const firstDay = 0;
-  const secondDay = 1;
-
-  for (let i = 0; i < totalDays; i++) {
+  for (let i = 0; i < weekDays.length; i++) {
     const currentDay = (day + i) % 7;
 
     // Skip excluded days
@@ -45,9 +39,9 @@ export function getWeekStartingFrom(
 
     // Determine the key for the current day
     let dayKey: string;
-    if (i === firstDay) {
+    if (i === 0) {
       dayKey = "Today";
-    } else if (i === secondDay) {
+    } else if (i === 1) {
       dayKey = "Tomorrow";
     } else {
       dayKey = weekDays[currentDay];
@@ -72,6 +66,7 @@ type TimeRangeOptions = {
  * Returns a time range with the specified parameters. A record where keys are
  * formatted time strings (in "short" time style) and values are ISO 8601
  * formatted timestamps.
+ *
  * @param startHour - The starting hour of the time range (optional, defaults
  * to the current hour).
  * @param endHour - The ending hour of the time range.
