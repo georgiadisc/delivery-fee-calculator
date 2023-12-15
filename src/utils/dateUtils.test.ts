@@ -29,45 +29,45 @@ describe("getWeekStartingFrom()", () => {
       Saturday: weekDay.Saturday,
     });
   });
-});
 
-it("returns days starting from Sunday, excluding Sunday", () => {
-  const result = getWeekStartingFrom({ dayOfWeek: weekDay.Sunday });
-  expect(result).toEqual({
-    Tomorrow: weekDay.Monday,
-    Tuesday: weekDay.Tuesday,
-    Wednesday: weekDay.Wednesday,
-    Thursday: weekDay.Thursday,
-    Friday: weekDay.Friday,
-    Saturday: weekDay.Saturday,
+  it("returns days starting from Sunday, excluding Sunday", () => {
+    const result = getWeekStartingFrom({ dayOfWeek: weekDay.Sunday });
+    expect(result).toEqual({
+      Tomorrow: weekDay.Monday,
+      Tuesday: weekDay.Tuesday,
+      Wednesday: weekDay.Wednesday,
+      Thursday: weekDay.Thursday,
+      Friday: weekDay.Friday,
+      Saturday: weekDay.Saturday,
+    });
   });
-});
 
-it("returns days starting from Sunday, excluding Monday and Sunday", () => {
-  const result = getWeekStartingFrom({
-    dayOfWeek: weekDay.Sunday,
-    excludedDays: [weekDay.Monday, weekDay.Sunday],
+  it("returns days starting from Sunday, excluding Monday and Sunday", () => {
+    const result = getWeekStartingFrom({
+      dayOfWeek: weekDay.Sunday,
+      excludedDays: [weekDay.Monday, weekDay.Sunday],
+    });
+    expect(result).toEqual({
+      Tuesday: weekDay.Tuesday,
+      Wednesday: weekDay.Wednesday,
+      Thursday: weekDay.Thursday,
+      Friday: weekDay.Friday,
+      Saturday: weekDay.Saturday,
+    });
   });
-  expect(result).toEqual({
-    Tuesday: weekDay.Tuesday,
-    Wednesday: weekDay.Wednesday,
-    Thursday: weekDay.Thursday,
-    Friday: weekDay.Friday,
-    Saturday: weekDay.Saturday,
-  });
-});
 
-it("returns days starting from Friday, excluding Sunday and Friday", () => {
-  const result = getWeekStartingFrom({
-    dayOfWeek: weekDay.Friday,
-    excludedDays: [weekDay.Sunday, weekDay.Friday],
-  });
-  expect(result).toEqual({
-    Tomorrow: weekDay.Saturday,
-    Monday: weekDay.Monday,
-    Tuesday: weekDay.Tuesday,
-    Wednesday: weekDay.Wednesday,
-    Thursday: weekDay.Thursday,
+  it("returns days starting from Friday, excluding Sunday and Friday", () => {
+    const result = getWeekStartingFrom({
+      dayOfWeek: weekDay.Friday,
+      excludedDays: [weekDay.Sunday, weekDay.Friday],
+    });
+    expect(result).toEqual({
+      Tomorrow: weekDay.Saturday,
+      Monday: weekDay.Monday,
+      Tuesday: weekDay.Tuesday,
+      Wednesday: weekDay.Wednesday,
+      Thursday: weekDay.Thursday,
+    });
   });
 });
 
