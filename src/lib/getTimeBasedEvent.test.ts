@@ -12,26 +12,26 @@ describe("getTimeBasedEvent()", () => {
   } as const;
 
   it("returns default event for a non-Friday and non-rush hour time", () => {
-    const nonRushDate = new Date("2023-01-03T12:00:00Z"); // Tuesday, 12 PM UTC
+    const nonRushDate = new Date("2024-01-03T12:00:00Z"); // Wednesday, 12 PM UTC
     expect(getTimeBasedEvent(nonRushDate, mockEvents)).toBe(mockEvents.default);
   });
 
   it("returns Friday rush event for a Friday during rush hours", () => {
-    const rushFridayDate = new Date("2023-01-06T16:00:00Z"); // Friday, 4 PM UTC
+    const rushFridayDate = new Date("2024-01-05T16:00:00Z"); // Friday, 4 PM UTC
     expect(getTimeBasedEvent(rushFridayDate, mockEvents)).toBe(
       mockEvents.fridayRush
     );
   });
 
   it("returns default event for a disabled Friday rush event on any day", () => {
-    const nonRushDate = new Date("2023-01-03T12:00:00Z"); // Tuesday, 12 PM UTC
+    const nonRushDate = new Date("2024-01-03T12:00:00Z"); // Wednesday, 12 PM UTC
     expect(getTimeBasedEvent(nonRushDate, disabledMockEvents)).toEqual(
       mockEvents.default
     );
   });
 
   it("returns default event when Friday rush event is disabled", () => {
-    const rushFridayDate = new Date("2023-01-06T16:00:00Z"); // Friday, 4 PM UTC
+    const rushFridayDate = new Date("2024-01-05T16:00:00Z"); // Friday, 4 PM UTC
     expect(getTimeBasedEvent(rushFridayDate, disabledMockEvents)).toEqual(
       mockEvents.default
     );
