@@ -4,13 +4,20 @@ import { getTimeRange, getWeekStartingFrom } from "@/utils/dateUtils";
 import { HStack, Select, VisuallyHidden } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 
+const formatTime = (date: Date): string =>
+  new Intl.DateTimeFormat("en-US", {
+    timeStyle: "short",
+    timeZone: "UTC",
+  }).format(date);
+
 const dayOptions = Object.entries(
   getWeekStartingFrom({ dayOfWeek: new Date().getDay() })
 ).map(([label, value]) => ({ label, value }));
 
-const timeOptions = Object.entries(
-  getTimeRange({ startHour: 12, endHour: 24 })
-).map(([label, value]) => ({ label, value }));
+const timeOptions = getTimeRange({
+  startTime: { hour: 12, minute: 0 },
+  endTime: { hour: 24, minute: 0 },
+}).map((value) => ({ label: formatTime(new Date(value)), value }));
 
 export function DatePicker() {
   const [selectedDay, setSelectedDay] = useState<string>();
