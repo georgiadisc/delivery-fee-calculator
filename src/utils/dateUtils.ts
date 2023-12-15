@@ -9,6 +9,9 @@ export const weekDay = {
   Saturday: 6,
 } as const;
 
+/** The number of milliseconds per minute. */
+const millisecondsPerMinute = 60000;
+
 /** Checks if the given day corresponds to Friday. */
 export function isFriday(day: number): boolean {
   return day === weekDay.Friday;
@@ -57,56 +60,42 @@ export function getWeekStartingFrom({
 }
 
 type TimeRangeOptions = {
-  /** The starting hour of the time range. */
-  startHour: number;
-  /** The ending hour of the time range. */
-  endHour: number;
+  /** Start time of the range. */
+  startTime: { hour: number; minute: number };
+  /** End time of the range. */
+  endTime: { hour: number; minute: number };
   /** The interval between time entries in minutes. */
   rangeInterval?: number;
 };
 
 /**
- * Returns a time range with the specified parameters. A record where keys are
- * formatted time strings (in "short" time style) and values are ISO 8601
- * formatted timestamps.
- * @param startHour - The starting hour of the time range.
- * @param endHour - The ending hour of the time range.
+ * Returns an array of timestamps within the specified time range. Timestamps
+ * are ISO 8601 formatted strings.
+ * @param startTime - The starting time of the time range.
+ * @param endTime - The ending time of the time range.
  * @param rangeInterval - The interval between time entries in minutes
  * (defaults to 5 minutes).
  */
 export function getTimeRange({
-  startHour,
-  endHour,
+  startTime,
+  endTime,
   rangeInterval = 5,
-}: TimeRangeOptions): Record<string, string> {
-  const millisecondsPerMinute = 60000;
+}: TimeRangeOptions): string[] {
+  const timestamps: string[] = [];
 
-  const timestamps: Record<string, string> = {};
   const currentTime = new Date();
+  currentTime.setUTCHours(startTime.hour, startTime.minute, 0, 0);
 
-  currentTime.setHours(startHour, currentTime.getMinutes(), 0, 0);
-
-  const endTime = new Date(
-    currentTime.getFullYear(),
-    currentTime.getMonth(),
-    currentTime.getDate(),
-    endHour,
-    0,
-    0
-  );
-
-  const formatTime = (date: Date): string =>
-    new Intl.DateTimeFormat("en-US", { timeStyle: "short" }).format(date);
+  const endDate = new Date(currentTime);
+  endDate.setUTCHours(endTime.hour, endTime.minute, 0, 0);
 
   const remainder = currentTime.getMinutes() % rangeInterval;
   currentTime.setMinutes(
     currentTime.getMinutes() + (rangeInterval - remainder)
   );
 
-  while (currentTime < endTime) {
-    const formattedTime = formatTime(currentTime);
-    timestamps[formattedTime] = currentTime.toISOString();
-
+  while (currentTime < endDate) {
+    timestamps.push(currentTime.toISOString());
     currentTime.setTime(
       currentTime.getTime() + rangeInterval * millisecondsPerMinute
     );

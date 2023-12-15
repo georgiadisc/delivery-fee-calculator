@@ -1,4 +1,9 @@
-import { getWeekStartingFrom, isFriday, weekDay } from "@/utils/dateUtils";
+import {
+  getTimeRange,
+  getWeekStartingFrom,
+  isFriday,
+  weekDay,
+} from "@/utils/dateUtils";
 
 describe("isFriday()", () => {
   it("returns true for Friday", () => {
@@ -63,5 +68,30 @@ it("returns days starting from Friday, excluding Sunday and Friday", () => {
     Tuesday: weekDay.Tuesday,
     Wednesday: weekDay.Wednesday,
     Thursday: weekDay.Thursday,
+  });
+});
+
+describe("getTimeRange()", () => {
+  const mockDate = new Date("2024-01-03T12:00:00Z"); // Wednesday, 12 PM UTC
+  jest.useFakeTimers().setSystemTime(mockDate);
+
+  it("", () => {
+    const result = getTimeRange({
+      startTime: { hour: 12, minute: 0 },
+      endTime: { hour: 13, minute: 0 },
+    });
+    expect(result).toMatchObject([
+      "2024-01-03T12:05:00.000Z",
+      "2024-01-03T12:10:00.000Z",
+      "2024-01-03T12:15:00.000Z",
+      "2024-01-03T12:20:00.000Z",
+      "2024-01-03T12:25:00.000Z",
+      "2024-01-03T12:30:00.000Z",
+      "2024-01-03T12:35:00.000Z",
+      "2024-01-03T12:40:00.000Z",
+      "2024-01-03T12:45:00.000Z",
+      "2024-01-03T12:50:00.000Z",
+      "2024-01-03T12:55:00.000Z",
+    ]);
   });
 });
