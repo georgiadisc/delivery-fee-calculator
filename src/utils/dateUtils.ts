@@ -17,7 +17,6 @@ export function isFriday(day: number): boolean {
 /**
  * Returns a record of days starting from the given day and extending until the
  * length of the week, excluding specified days.
- *
  * @param day - The numeric representation of the starting day.
  * @param excludedDays - An array of numeric representations of days to be
  * excluded (default is Sunday).
@@ -63,7 +62,6 @@ type TimeRangeOptions = {
  * Returns a time range with the specified parameters. A record where keys are
  * formatted time strings (in "short" time style) and values are ISO 8601
  * formatted timestamps.
- *
  * @param startHour - The starting hour of the time range (optional, defaults
  * to the current hour).
  * @param endHour - The ending hour of the time range.
