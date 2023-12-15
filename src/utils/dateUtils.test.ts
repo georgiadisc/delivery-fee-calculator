@@ -3,7 +3,7 @@ import {
   getWeekStartingFrom,
   isFriday,
   weekDay,
-} from "@/utils/dateUtils";
+} from "./dateUtils";
 
 describe("isFriday()", () => {
   it("returns true for Friday", () => {
