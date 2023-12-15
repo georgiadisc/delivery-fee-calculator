@@ -32,7 +32,7 @@ export function OrderDetailsSection({ deliveryResponse, onClose }: Props) {
             placeholder="blur"
             blurDataURL={woltBackground.blurDataURL}
             style={{ objectFit: "cover" }}
-            sizes="100vw"
+            sizes="(max-width: 840px) 100vw, 50vw"
             fill
           />
         </ScaleFade>
