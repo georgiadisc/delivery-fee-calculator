@@ -9,8 +9,6 @@ export const weekDay = {
   Saturday: 6,
 } as const;
 
-const excludeSunday = [weekDay.Sunday];
-
 /** Checks if the given day corresponds to Friday. */
 export function isFriday(day: number): boolean {
   return day === weekDay.Friday;
@@ -26,7 +24,7 @@ export function isFriday(day: number): boolean {
  */
 export function getWeekStartingFrom(
   day: number,
-  excludedDays: number[] = excludeSunday
+  excludedDays: number[] = [weekDay.Sunday]
 ): Record<string, number> {
   const weekDays = Object.keys(weekDay);
   const days: Record<string, number> = {};
