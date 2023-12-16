@@ -1,10 +1,10 @@
 "use client";
 
-import { ButtonRow } from "@/components/ButtonRow";
 import { CartSection } from "@/components/CartSection";
 import { DateSection } from "@/components/DateSection";
 import { DistanceSection } from "@/components/DistanceSection";
 import { ItemSection } from "@/components/ItemSection";
+import { SubmitButton } from "@/components/SubmitButton";
 import { TitleSection } from "@/components/TitleSection";
 import {
   DeliveryResponse,
@@ -24,11 +24,11 @@ export function OrderInputSection({ onSubmit }: Props) {
     const formData = new FormData(event.currentTarget);
     const entries = Object.fromEntries(formData);
     const [cart, distance, items, day, time] = [
-      parseFloat(entries.cart as string),
-      parseInt(entries.distance as string),
-      parseInt(entries.items as string),
-      parseInt(entries.day as string),
-      new Date(entries.time as string),
+      parseFloat(entries["cart"] as string),
+      parseInt(entries["distance"] as string),
+      parseInt(entries["items"] as string),
+      parseInt(entries["day"] as string),
+      new Date(entries["time"] as string),
     ];
 
     time.setDate(time.getDate() + (day - time.getDay()));
@@ -50,7 +50,7 @@ export function OrderInputSection({ onSubmit }: Props) {
           <ItemSection />
           <DateSection />
         </Flex>
-        <ButtonRow />
+        <SubmitButton />
       </Flex>
     </form>
   );
