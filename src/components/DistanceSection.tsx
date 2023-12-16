@@ -1,20 +1,19 @@
 import { RangeSlider } from "@/components/RangeSlider";
-import { SectionHeaderRow } from "@/components/SectionHeaderRow";
-import { FormControl, Stack } from "@chakra-ui/react";
 import { DirectionsBikeRounded } from "@mui/icons-material";
+import { Section } from "./Section";
 
 export function DistanceSection() {
   return (
-    <FormControl>
-      <Stack spacing={3}>
-        <SectionHeaderRow
-          title="Delivery Distance"
-          description="The distance to your delivery location."
-          icon={<DirectionsBikeRounded />}
-          htmlFor="distance"
-        />
+    <Section>
+      <Section.Header
+        title="Delivery Distance"
+        description="The distance to your delivery location."
+        icon={<DirectionsBikeRounded />}
+        htmlFor="distance"
+      />
+      <Section.Content>
         <RangeSlider min={1000} max={5000} step={500} />
-      </Stack>
-    </FormControl>
+      </Section.Content>
+    </Section>
   );
 }

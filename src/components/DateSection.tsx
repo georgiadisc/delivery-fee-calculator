@@ -1,19 +1,18 @@
 import { DatePicker } from "@/components/DatePicker";
-import { SectionHeaderRow } from "@/components/SectionHeaderRow";
-import { FormControl, Stack } from "@chakra-ui/react";
 import { CalendarMonthRounded } from "@mui/icons-material";
+import { Section } from "./Section";
 
 export function DateSection() {
   return (
-    <FormControl>
-      <Stack spacing={3}>
-        <SectionHeaderRow
-          title="Date"
-          description="The date/time when the order is being made."
-          icon={<CalendarMonthRounded />}
-        />
+    <Section>
+      <Section.Header
+        title="Date"
+        description="The date/time when the order is being made."
+        icon={<CalendarMonthRounded />}
+      />
+      <Section.Content>
         <DatePicker />
-      </Stack>
-    </FormControl>
+      </Section.Content>
+    </Section>
   );
 }
