@@ -24,6 +24,8 @@ export function Stepper() {
         height={10}
         borderWidth={1}
         colorScheme="gray"
+        aria-label="decrement"
+        tabIndex={0}
       >
         <RemoveRounded />
       </Button>
@@ -41,6 +43,8 @@ export function Stepper() {
         height={10}
         borderWidth={1}
         colorScheme="gray"
+        aria-label="increment"
+        tabIndex={0}
       >
         <AddRounded />
       </Button>
