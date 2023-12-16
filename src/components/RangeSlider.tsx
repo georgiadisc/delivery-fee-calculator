@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-interface Props {
+interface RangeSliderProps {
   /** The default value of the slider. Defaults to the minimum value. */
   defaultValue?: number;
   /** The minimum value of the slider. */
@@ -23,7 +23,12 @@ interface Props {
   step: number;
 }
 
-export function RangeSlider({ defaultValue, min, max, step }: Props) {
+export function RangeSlider({
+  defaultValue,
+  min,
+  max,
+  step,
+}: RangeSliderProps) {
   const [sliderValue, setSliderValue] = useState(defaultValue ?? min);
   const [showTooltip, setShowTooltip] = useState(false);
 
