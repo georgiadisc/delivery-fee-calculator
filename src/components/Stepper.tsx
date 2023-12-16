@@ -3,12 +3,21 @@
 import { Button, HStack, Input, useNumberInput } from "@chakra-ui/react";
 import { AddRounded, RemoveRounded } from "@mui/icons-material";
 
-export function Stepper() {
+interface StepperProps {
+  /** The default value of the slider. Defaults to the minimum value. */
+  defaultValue?: number;
+  /** The minimum value of the slider. */
+  min: number;
+  /** The step value for each movement of the slider. */
+  step: number;
+}
+
+export function Stepper({ defaultValue, min, step }: StepperProps) {
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
-      step: 1,
-      defaultValue: 1,
-      min: 1,
+      step: step,
+      defaultValue: defaultValue ?? min,
+      min: min,
     });
 
   const inc = getIncrementButtonProps();
@@ -24,8 +33,6 @@ export function Stepper() {
         height={10}
         borderWidth={1}
         colorScheme="gray"
-        aria-label="decrement"
-        tabIndex={0}
       >
         <RemoveRounded />
       </Button>
@@ -43,8 +50,6 @@ export function Stepper() {
         height={10}
         borderWidth={1}
         colorScheme="gray"
-        aria-label="increment"
-        tabIndex={0}
       >
         <AddRounded />
       </Button>

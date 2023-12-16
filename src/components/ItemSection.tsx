@@ -12,7 +12,7 @@ export function ItemSection() {
         htmlFor="items"
       />
       <Section.Content>
-        <Stepper />
+        <Stepper min={1} step={1} />
       </Section.Content>
     </Section>
   );
