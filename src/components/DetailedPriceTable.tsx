@@ -1,4 +1,5 @@
 import { DeliveryResponse } from "@/lib/calculateDeliveryFee";
+import { woltEvents } from "@/lib/getTimeBasedEvent";
 import {
   Table,
   TableContainer,
@@ -33,7 +34,7 @@ const PriceRow = ({
       isNumeric
       textDecorationLine={isStrikethrough ? "line-through" : undefined}
     >
-      {`${value.toFixed(2)} ${suffix}`}
+      {`${value.toFixed(2)}${suffix}`}
     </Td>
   </Tr>
 );
@@ -68,7 +69,7 @@ export function DetailedPriceTable({ data }: { data: DeliveryResponse }) {
             label={`${data.event.summary} Rate`}
             value={data.event.rate}
             isStrikethrough={data.feeToBePaid === 0}
-            suffix="X"
+            suffix="&times;"
           />
           <PriceRow
             label="Total Fee"
@@ -79,7 +80,7 @@ export function DetailedPriceTable({ data }: { data: DeliveryResponse }) {
         <Tfoot>
           <Tr>
             <Th>Fee to be paid</Th>
-            <Th isNumeric>{data.feeToBePaid.toFixed(2)} €</Th>
+            <Th isNumeric>{data.feeToBePaid.toFixed(2)}€</Th>
           </Tr>
         </Tfoot>
       </Table>
