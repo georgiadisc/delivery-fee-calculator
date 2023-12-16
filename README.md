@@ -2,7 +2,9 @@
 
 > Wolt Engineering Internship Assignment for Summer 2024
 
-This is a React & TypeScript application for calculating delivery fees. It uses ChakraUI and Material Icons for styling and Jest for testing.
+This is an application for calculating delivery fees built with React & TypeScript.
+
+It uses Chakra UI and Material Icons for styling and Jest for testing.
 
 ## 🚀 Features
 
