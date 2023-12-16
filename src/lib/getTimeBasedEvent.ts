@@ -12,7 +12,7 @@ export type TimeBasedEvent = {
 export type EventDictionary = Record<string, TimeBasedEvent>;
 
 /** A dictionary of predefined Wolt events. */
-export const woltEvents: EventDictionary = {
+export const woltEvents = {
   default: { summary: "Default", rate: 1.0 },
   fridayRush: { summary: "Friday Rush", rate: 1.2 },
 } as const;
