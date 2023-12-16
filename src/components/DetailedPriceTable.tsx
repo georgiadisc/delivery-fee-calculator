@@ -1,5 +1,4 @@
 import { DeliveryResponse } from "@/lib/calculateDeliveryFee";
-import { woltEvents } from "@/lib/getTimeBasedEvent";
 import {
   Table,
   TableContainer,
