@@ -15,6 +15,7 @@ export default function Page() {
       spacing={8}
       p={{ base: 4, sm: 4, md: 6, lg: 8 }}
       height={{ md: "100dvh" }}
+      as="main"
     >
       <OrderInputSection onSubmit={setDeliveryResponse} />
       <OrderDetailsSection
