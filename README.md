@@ -1,7 +1,5 @@
 # Delivery Fee Calculator
 
-> Wolt Engineering Internship Assignment for Summer 2024
-
 This is an application for calculating delivery fees built with React & TypeScript.
 
 It uses Chakra UI and Material Icons for styling and Jest for testing.
